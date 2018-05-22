@@ -1,0 +1,73 @@
+plugins {
+    id 'groovy'
+    id 'java'
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'application'
+
+group 'com.risingstone.rockui'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+import org.gradle.internal.os.OperatingSystem
+
+switch ( OperatingSystem.current() ) {
+    case OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = "natives-windows"
+        break
+    case OperatingSystem.LINUX:
+        project.ext.lwjglNatives = "natives-linux"
+        break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = "natives-macos"
+        break
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //----------LWJGL START----------//
+    compile "org.lwjgl.osgi:org.lwjgl.lwjgl:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.assimp:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.bgfx:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.egl:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.glfw:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.jawt:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.jemalloc:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.lmdb:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.lz4:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.nanovg:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.nfd:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.nuklear:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.odbc:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.openal:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.opencl:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.opengl:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.opengles:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.openvr:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.ovr:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.par:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.remotery:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.rpmalloc:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.sse:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.stb:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.tinyexr:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.tinyfd:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.tootle:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.vulkan:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.xxhash:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.yoga:3.1.6"
+    compile "org.lwjgl.osgi:org.lwjgl.zstd:3.1.6"
+    compile "org.joml:joml:1.9.9"
+    compile "com.code-disaster.steamworks4j:steamworks4j:1.7.0"
+    compile "com.code-disaster.steamworks4j:steamworks4j-server:1.7.0"
+    //----------LWJGL END------------//
+
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
