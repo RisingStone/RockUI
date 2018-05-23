@@ -1,19 +1,29 @@
 package com.risingstone.risingstoneui;
 
+import com.risingstone.risingstoneui.Settings.Settings;
+import com.risingstone.risingstoneui.Settings.SettingsReader;
+import com.risingstone.risingstoneui.Xml.XMLNode;
+import com.risingstone.risingstoneui.Xml.XmlReader;
+import com.risingstone.risingstoneui.command.KeyHandler;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.io.File;
 import java.nio.*;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class HelloWorld {
+public class Main {
 
     // The window handle
     private long window;
@@ -39,8 +49,9 @@ public class HelloWorld {
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW. Most GLFW functions will not work before doing this.
-        if ( !glfwInit() )
+        if ( !glfwInit() ) {
             throw new IllegalStateException("Unable to initialize GLFW");
+        }
 
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
@@ -48,15 +59,13 @@ public class HelloWorld {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(300, 300, "RockUI", NULL, NULL);
-        if ( window == NULL )
+        window = glfwCreateWindow(Settings.defaultWindow.windowWidth, Settings.defaultWindow.windowHeight, Settings.defaultWindow.windowTitle, NULL, NULL);
+        if ( window == NULL ) {
             throw new RuntimeException("Failed to create the GLFW window");
+        }
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-                glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-        });
+        glfwSetKeyCallback(window, new KeyHandler());
 
         // Get the thread stack and push a new frame
         try ( MemoryStack stack = stackPush() ) {
@@ -68,6 +77,14 @@ public class HelloWorld {
 
             // Get the resolution of the primary monitor
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+            //Get all connected monitors
+            PointerBuffer pb = glfwGetMonitors();
+            while(pb.hasRemaining()){
+                long monitor = pb.get();
+                String name = glfwGetMonitorName(monitor);
+                System.out.println(String.format("Monitor Address: %s monitor name: %s", monitor, name));
+            }
 
             // Center the window
             glfwSetWindowPos(
@@ -95,7 +112,7 @@ public class HelloWorld {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -111,7 +128,16 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
-        new HelloWorld().run();
+        XmlReader reader = new XmlReader();
+        File file = new File("/Users/m.stanford/IdeaProjects/risingstoneui/src/main/resources/test.xml");
+        reader.readXMLFile(file, new XmlReader.Callback<String>() {
+            @Override
+            public void onParseComplete(XMLNode<String> result) {
+                System.out.println(result);
+            }
+        });
+
+//        new Main().run();
     }
 
 }

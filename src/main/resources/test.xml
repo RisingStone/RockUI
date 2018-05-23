@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<Settings appName="RockUI" author="Mark" url="rock.ui">
+    <Default id="00000" name="MainWindow">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Default>
+
+    <Window id="12345" name="window1">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Window>
+    <Window id="23456" name="window2">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Window>
+    <Window id="34567" name="window3">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Window>
+    <Window id="45678" name="window4">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Window>
+    <Window id="56789" name="window5">
+        <Height>600</Height>
+        <Width>800</Width>
+        <Title>RockUI</Title>
+        <PrimaryMonitor>default</PrimaryMonitor>
+        <PrefferedMonitor>-1</PrefferedMonitor>
+        <RefreshRate>30</RefreshRate>
+    </Window>
+</Settings>
