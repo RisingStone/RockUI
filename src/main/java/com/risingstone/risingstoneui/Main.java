@@ -1,32 +1,36 @@
 package com.risingstone.risingstoneui;
 
-import com.risingstone.risingstoneui.Settings.Settings;
+import com.risingstone.risingstoneui.File.FileUtils;
 import com.risingstone.risingstoneui.Settings.SettingsReader;
+import com.risingstone.risingstoneui.Settings.WindowSettings;
 import com.risingstone.risingstoneui.Xml.XMLNode;
 import com.risingstone.risingstoneui.Xml.XmlReader;
 import com.risingstone.risingstoneui.command.KeyHandler;
-import org.lwjgl.*;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
+import org.lwjgl.PointerBuffer;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
 
-import java.io.File;
-import java.nio.*;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.nio.IntBuffer;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-import static org.lwjgl.glfw.Callbacks.*;
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryStack.stackPush;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Main {
 
     // The window handle
     private long window;
+
+    WindowSettings windowSettings;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -44,6 +48,17 @@ public class Main {
     }
 
     private void init() {
+        //Load settings
+        windowSettings = new WindowSettings();
+        try {
+            this.windowSettings.defaultWindow = SettingsReader.getDefaultWindowSettings().get();
+            System.out.println(this.windowSettings.defaultWindow);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -59,7 +74,7 @@ public class Main {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(Settings.defaultWindow.windowWidth, Settings.defaultWindow.windowHeight, Settings.defaultWindow.windowTitle, NULL, NULL);
+        window = glfwCreateWindow(this.windowSettings.defaultWindow.windowWidth, this.windowSettings.defaultWindow.windowHeight, this.windowSettings.defaultWindow.windowTitle, NULL, NULL);
         if ( window == NULL ) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
@@ -129,15 +144,17 @@ public class Main {
 
     public static void main(String[] args) {
         XmlReader reader = new XmlReader();
-        File file = new File("/Users/m.stanford/IdeaProjects/risingstoneui/src/main/resources/test.xml");
-        reader.readXMLFile(file, new XmlReader.Callback<String>() {
-            @Override
-            public void onParseComplete(XMLNode<String> result) {
-                System.out.println(result);
-            }
-        });
-
-//        new Main().run();
+        Future<XMLNode> xmlReaderFuture = reader.readXMLFile(FileUtils.getfileFromResources("window_settings.xml"));
+        try {
+            System.out.println(xmlReaderFuture.get(1000l, TimeUnit.MILLISECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        new Main().run();
     }
 
 }

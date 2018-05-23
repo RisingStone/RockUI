@@ -5,7 +5,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Default>
 
@@ -14,7 +14,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Window>
     <Window id="23456" name="window2">
@@ -22,7 +22,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Window>
     <Window id="34567" name="window3">
@@ -30,7 +30,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Window>
     <Window id="45678" name="window4">
@@ -38,7 +38,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Window>
     <Window id="56789" name="window5">
@@ -46,7 +46,7 @@
         <Width>800</Width>
         <Title>RockUI</Title>
         <PrimaryMonitor>default</PrimaryMonitor>
-        <PrefferedMonitor>-1</PrefferedMonitor>
+        <PreferredMonitor>-1</PreferredMonitor>
         <RefreshRate>30</RefreshRate>
     </Window>
 </Settings>

@@ -2,7 +2,7 @@ package com.risingstone.risingstoneui.Settings;
 
 import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 
-public class Settings {
+public class WindowSettings {
 
     public static class WindowSetting{
 
@@ -20,7 +20,8 @@ public class Settings {
         //Refresh rate for window
         public int refreshRate = 30;
 
-        public WindowSetting() {
+        public WindowSetting(){
+
         }
 
         public WindowSetting(long windowId, int windowHeight, int windowWidth, String windowTitle, long primaryMonitor, long preferredMonitor, int refreshRate) {
@@ -47,7 +48,7 @@ public class Settings {
     }
 
     //Default settings
-    public static WindowSetting defaultWindow = new WindowSetting(
+    public WindowSetting defaultWindow = new WindowSetting(
             12345l,
             800,
             600,
@@ -56,7 +57,6 @@ public class Settings {
             1,
             30);
 
-    //Settings per window
-    public static WindowSetting[] windows;
-
+    //WindowSettings per window
+    public WindowSetting[] windows;
 }
