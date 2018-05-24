@@ -12,9 +12,9 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class XmlReader {
-    private FutureTask<XMLNode> future;
+    private FutureTask<XmlNode> future;
 
-    private class XMLReaderCallable implements Callable<XMLNode>{
+    private class XMLReaderCallable implements Callable<XmlNode>{
 
         /**
          * Using the countdown latch to hold the thread from returning the result
@@ -23,8 +23,8 @@ public class XmlReader {
         private CountDownLatch latch;
         private File file;
 
-        private Stack<XMLNode> elementStack;
-        private XMLNode currentNode;
+        private Stack<XmlNode> elementStack;
+        private XmlNode currentNode;
         private boolean isEndElement = false;
 
         public XMLReaderCallable(File file) {
@@ -33,10 +33,10 @@ public class XmlReader {
         }
 
         @Override
-        public XMLNode call() throws Exception {
+        public XmlNode call() throws Exception {
             try{
                 SaxElementHandler handler = new SaxElementHandler();
-                elementStack = new Stack<XMLNode>();
+                elementStack = new Stack<XmlNode>();
 
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser saxParser = factory.newSAXParser();
@@ -58,7 +58,7 @@ public class XmlReader {
         class SaxElementHandler extends DefaultHandler {
 
             public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-                XMLNode newNode = new XMLNode(qName, "", new HashMap<>(), new ArrayList<>());
+                XmlNode newNode = new XmlNode(qName, "", new HashMap<>(), new ArrayList<>());
 
                 if(attributes.getLength() > 0){
                     Map<String, String> attributeMap = new HashMap<>();
@@ -75,7 +75,7 @@ public class XmlReader {
             public void endElement(String uri, String localName, String qName) throws SAXException {
                 currentNode = elementStack.pop();
                 if(!elementStack.isEmpty()) {
-                    XMLNode lastNode = elementStack.peek();
+                    XmlNode lastNode = elementStack.peek();
                     lastNode.getChildren().add(currentNode);
                 }
                 isEndElement = true;
@@ -100,7 +100,7 @@ public class XmlReader {
     }
 
 
-    public Future<XMLNode> readXMLFile(File file){
+    public Future<XmlNode> readXMLFile(File file){
         future = new FutureTask(new XMLReaderCallable(file));
         future.run();
         return future;

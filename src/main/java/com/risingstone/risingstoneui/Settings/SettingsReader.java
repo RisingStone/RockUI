@@ -2,9 +2,12 @@ package com.risingstone.risingstoneui.Settings;
 
 
 import com.risingstone.risingstoneui.File.FileUtils;
-import com.risingstone.risingstoneui.Xml.XMLNode;
+import com.risingstone.risingstoneui.Xml.XmlNode;
 import com.risingstone.risingstoneui.Xml.XmlReader;
+import com.risingstone.risingstoneui.Xml.XmlUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
@@ -12,9 +15,9 @@ import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 
 public class SettingsReader {
 
-    public static Future<WindowSettings.WindowSetting> getDefaultWindowSettings(){
-        FutureTask<WindowSettings.WindowSetting> settingsFutureTask = new FutureTask<>(() -> {
-            XMLNode node = new XmlReader().readXMLFile(FileUtils.getfileFromResources("window_settings.xml")).get();
+    public static Future<WindowSettings> getDefaultWindowSettings(){
+        FutureTask<WindowSettings> settingsFutureTask = new FutureTask<>(() -> {
+            XmlNode node = new XmlReader().readXMLFile(FileUtils.getfileFromResources("window_settings.xml")).get();
             return buildDefaultWindowSettings(node);
         });
 
@@ -22,25 +25,41 @@ public class SettingsReader {
         return settingsFutureTask;
     }
 
-    private static WindowSettings.WindowSetting buildDefaultWindowSettings(XMLNode node) {
-        XMLNode defaultSettingsNode = XMLNode.getChildByNameDeep("Default", node);
+    public static Future<List<WindowSettings>> getWindowSettings(){
+        FutureTask<List<WindowSettings>> settingsFutureTask = new FutureTask<>(() -> {
+            XmlNode node = new XmlReader().readXMLFile(FileUtils.getfileFromResources("window_settings.xml")).get();
+            List<WindowSettings> list = new ArrayList<>();
+            List<XmlNode> windowNodes = XmlUtils.getListOfChildrenByNameDeep("Window", node);
+            for(XmlNode windowNode : windowNodes){
+                list.add(buildWindowSetting(windowNode));
+            }
+            return list;
+        });
+
+        settingsFutureTask.run();
+        return settingsFutureTask;
+    }
+
+    private static WindowSettings buildDefaultWindowSettings(XmlNode node) {
+        XmlNode defaultSettingsNode = XmlUtils.getChildByNameDeep("Default", node);
         return buildWindowSetting(defaultSettingsNode);
     }
 
-    private static WindowSettings.WindowSetting buildWindowSetting(XMLNode node) {
-        WindowSettings.WindowSetting windowSettings = new WindowSettings.WindowSetting();
+    private static WindowSettings buildWindowSetting(XmlNode node) {
+        WindowSettings windowSettings = new WindowSettings();
 
         if(windowSettings != null) {
-            //ID and Title are in the attributes
+            //ID and Tag are in the attributes
             windowSettings.windowId = Long.parseLong(node.getAttributes().get("id"));
-            windowSettings.windowTitle = node.getAttributes().get("name");
+            windowSettings.windowTag = node.getAttributes().get("title");
 
-            //Grab child names of height and width and get vals
-            windowSettings.windowHeight = Integer.parseInt(XMLNode.getChildByNameShallow("Height", node).getVal());
-            windowSettings.windowWidth = Integer.parseInt(XMLNode.getChildByNameShallow("Width", node).getVal());
+            //Grab child names of Title and height and width and get vals
+            windowSettings.windowTitle = XmlUtils.getChildByNameShallow("Title", node).getVal();
+            windowSettings.windowHeight = Integer.parseInt(XmlUtils.getChildByNameShallow("Height", node).getVal());
+            windowSettings.windowWidth = Integer.parseInt(XmlUtils.getChildByNameShallow("Width", node).getVal());
 
             //Do some massaging to allow default to be used
-            String primaryMonitorString = XMLNode.getChildByNameShallow("PrimaryMonitor", node).getVal();
+            String primaryMonitorString = XmlUtils.getChildByNameShallow("PrimaryMonitor", node).getVal();
             long primaryMonitor = glfwGetPrimaryMonitor();
             if (!primaryMonitorString.equalsIgnoreCase("default")) {
                 primaryMonitor = Long.parseLong(primaryMonitorString);
@@ -48,7 +67,7 @@ public class SettingsReader {
             windowSettings.primaryMonitor = primaryMonitor;
 
             //Do some massaging to allow default to be used
-            String preferredMonitorString = XMLNode.getChildByNameShallow("PreferredMonitor", node).getVal();
+            String preferredMonitorString = XmlUtils.getChildByNameShallow("PreferredMonitor", node).getVal();
             long preferredMonitor = glfwGetPrimaryMonitor();
             if (!preferredMonitorString.equalsIgnoreCase("default")) {
                 preferredMonitor = Long.parseLong(preferredMonitorString);
@@ -56,7 +75,7 @@ public class SettingsReader {
             windowSettings.preferredMonitor = preferredMonitor;
 
             //Grab child name of refresh rate and grab the val
-            windowSettings.refreshRate = Integer.parseInt(XMLNode.getChildByNameShallow("RefreshRate", node).getVal());
+            windowSettings.refreshRate = Integer.parseInt(XmlUtils.getChildByNameShallow("RefreshRate", node).getVal());
         }
         return windowSettings;
     }

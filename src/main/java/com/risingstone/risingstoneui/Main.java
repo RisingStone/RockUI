@@ -3,7 +3,7 @@ package com.risingstone.risingstoneui;
 import com.risingstone.risingstoneui.File.FileUtils;
 import com.risingstone.risingstoneui.Settings.SettingsReader;
 import com.risingstone.risingstoneui.Settings.WindowSettings;
-import com.risingstone.risingstoneui.Xml.XMLNode;
+import com.risingstone.risingstoneui.Xml.XmlNode;
 import com.risingstone.risingstoneui.Xml.XmlReader;
 import com.risingstone.risingstoneui.command.KeyHandler;
 import org.lwjgl.PointerBuffer;
@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +30,11 @@ public class Main {
 
     // The window handle
     private long window;
+    private List<Long> windows;
 
-    WindowSettings windowSettings;
+
+    WindowSettings defaultWindow;
+    List<WindowSettings> windowSettings;
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -49,10 +53,11 @@ public class Main {
 
     private void init() {
         //Load settings
-        windowSettings = new WindowSettings();
         try {
-            this.windowSettings.defaultWindow = SettingsReader.getDefaultWindowSettings().get();
-            System.out.println(this.windowSettings.defaultWindow);
+            this.defaultWindow = SettingsReader.getDefaultWindowSettings().get();
+            this.windowSettings = SettingsReader.getWindowSettings().get();
+            System.out.println(this.defaultWindow);
+            System.out.println(this.windows);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -74,13 +79,27 @@ public class Main {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         // Create the window
-        window = glfwCreateWindow(this.windowSettings.defaultWindow.windowWidth, this.windowSettings.defaultWindow.windowHeight, this.windowSettings.defaultWindow.windowTitle, NULL, NULL);
+        window = glfwCreateWindow(this.defaultWindow.windowWidth, this.defaultWindow.windowHeight, this.defaultWindow.windowTitle, NULL, NULL);
         if ( window == NULL ) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
+        showWindow(window, this.defaultWindow);
+
+        for(WindowSettings window : this.windowSettings){
+            System.out.println("trying to make new window: " + window.windowTitle);
+            window.windowId = glfwCreateWindow(window.windowWidth, window.windowHeight, window.windowTitle, NULL, NULL);
+            if ( window.windowId == NULL ) {
+                throw new RuntimeException("Failed to create the GLFW window");
+            }
+            showWindow(window.windowId, window);
+        }
+    }
+
+    private void showWindow(long window, WindowSettings setting) {
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, new KeyHandler());
+
 
         // Get the thread stack and push a new frame
         try ( MemoryStack stack = stackPush() ) {
@@ -144,7 +163,7 @@ public class Main {
 
     public static void main(String[] args) {
         XmlReader reader = new XmlReader();
-        Future<XMLNode> xmlReaderFuture = reader.readXMLFile(FileUtils.getfileFromResources("window_settings.xml"));
+        Future<XmlNode> xmlReaderFuture = reader.readXMLFile(FileUtils.getfileFromResources("window_settings.xml"));
         try {
             System.out.println(xmlReaderFuture.get(1000l, TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
