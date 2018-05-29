@@ -1,64 +1,42 @@
 <?xml version="1.0"?>
-<Windows appName="RockUI" author="Mark" url="rock.ui" mapper="WindowSetting">
-    <Default id="00000" tag="MainWindow">
-        <Height>600</Height>
-        <Width>800</Width>
-        <PosX>center</PosX>
-        <PosY>center</PosY>
-        <Title>RockUI</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
-    </Default>
-
-    <Window id="12345" tag="window1">
-        <Height>100</Height>
-        <Width>100</Width>
-        <PosX>left</PosX>
-        <PosY>top</PosY>
-        <Title>window1</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
+<Windows AppName="RockUI"
+         Author="Mark"
+         URL="rock.ui"
+         XMLMapper="WindowSetting">
+    <Window
+            ID="00000"
+            Tag="MainWindow"
+            Height = "600"
+            Width = "800"
+            PosX = "Center"
+            PosY = "Center"
+            Title = "RockUI"
+            PrimaryMonitor = "default"
+            PreferredMonitor = "-1"
+            RefreshRate = "30">
+        <Window
+                ID="22222"
+                Tag="Sub"
+                Height = "600"
+                Width = "800"
+                PosX = "Center"
+                PosY = "Center"
+                Title = "Sub"
+                PrimaryMonitor = "default"
+                PreferredMonitor = "-1"
+                RefreshRate = "30"
+        />
     </Window>
-    <Window id="23456" tag="window2">
-        <Height>400</Height>
-        <Width>400</Width>
-        <PosX>300</PosX>
-        <PosY>300</PosY>
-        <Title>window2</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
-    </Window>
-    <Window id="34567" tag="window3">
-        <Height>1000</Height>
-        <Width>100</Width>
-        <PosX>800</PosX>
-        <PosY>800</PosY>
-        <Title>window3</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
-    </Window>
-    <Window id="45678" tag="window4">
-        <Height>400</Height>
-        <Width>200</Width>
-        <PosX>800</PosX>
-        <PosY>0</PosY>
-        <Title>window4</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
-    </Window>
-    <Window id="56789" tag="window5">
-        <Height>100</Height>
-        <Width>500</Width>
-        <PosX>0</PosX>
-        <PosY>800</PosY>
-        <Title>window5</Title>
-        <PrimaryMonitor>default</PrimaryMonitor>
-        <PreferredMonitor>-1</PreferredMonitor>
-        <RefreshRate>30</RefreshRate>
-    </Window>
+    <Window
+            ID="33333"
+            Tag="Third"
+            Height = "600"
+            Width = "800"
+            PosX = "Center"
+            PosY = "Center"
+            Title = "Third"
+            PrimaryMonitor = "default"
+            PreferredMonitor = "-1"
+            RefreshRate = "30"
+    />
 </Windows>

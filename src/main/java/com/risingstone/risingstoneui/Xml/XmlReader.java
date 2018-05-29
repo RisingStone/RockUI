@@ -61,7 +61,7 @@ public class XmlReader {
                 XmlNode newNode = new XmlNode(qName, "", new HashMap<>(), new ArrayList<>());
 
                 if(attributes.getLength() > 0){
-                    Map<String, String> attributeMap = new HashMap<>();
+                    Map<String, Object> attributeMap = new HashMap<>();
                     for(int i = 0; i < attributes.getLength(); i++){
                         attributeMap.put(attributes.getQName(i), attributes.getValue(i));
                     }

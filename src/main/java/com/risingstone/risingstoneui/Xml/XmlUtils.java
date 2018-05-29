@@ -48,24 +48,24 @@ public class XmlUtils {
         return null;
     }
 
-    public static XmlNode getChildByAttributeShallow(String key, String val, XmlNode node){
+    public static XmlNode getChildByAttributeShallow(String attributeName, XmlNode node){
         for(XmlNode child : node.getChildren()){
-            if(child.getAttributes().get(key).equalsIgnoreCase(val)){
+            if(child.getAttributes().containsKey(attributeName)){
                 return child;
             }
         }
         return null;
     }
 
-    public static XmlNode getChildByAttributeDeep(String key, String val, XmlNode node){
+    public static XmlNode getChildByAttributeDeep(String attributeName, XmlNode node){
         LinkedList<XmlNode> queue = new LinkedList<>();
         queue.push(node);
         while(!queue.isEmpty()){
             queue.addAll(node.getChildren());
-            if(node.getAttributes().get(key).equalsIgnoreCase(val)){
-                return node;
+            if(queue.peekFirst().getAttributes().containsKey(attributeName)){
+                return queue.peekFirst();
             }
-            node = queue.pollLast();
+            node = queue.pollFirst();
         }
         return null;
     }
