@@ -1,4 +1,4 @@
-package com.risingstone.risingstoneui.Xml;
+package com.risingstone.risingstoneui.xml;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

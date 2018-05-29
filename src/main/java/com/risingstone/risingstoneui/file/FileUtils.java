@@ -1,4 +1,4 @@
-package com.risingstone.risingstoneui.File;
+package com.risingstone.risingstoneui.file;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package com.risingstone.risingstoneui.Xml;
+package com.risingstone.risingstoneui.xml;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

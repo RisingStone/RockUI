@@ -2,7 +2,8 @@
 <Windows AppName="RockUI"
          Author="Mark"
          URL="rock.ui"
-         XMLMapper="WindowSetting">
+         XMLMapper="WindowSetting"
+         NameSpace="com.risingstone.risingstoneui.settings">
     <Window
             ID="00000"
             Tag="MainWindow"

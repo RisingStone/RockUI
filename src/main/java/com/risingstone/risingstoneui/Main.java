@@ -1,11 +1,11 @@
 package com.risingstone.risingstoneui;
 
-import com.risingstone.risingstoneui.File.FileUtils;
-import com.risingstone.risingstoneui.Settings.Window;
-import com.risingstone.risingstoneui.Settings.Windows;
-import com.risingstone.risingstoneui.Xml.XmlNode;
-import com.risingstone.risingstoneui.Xml.XmlReader;
-import com.risingstone.risingstoneui.Xml.XmlToPojo;
+import com.risingstone.risingstoneui.file.FileUtils;
+import com.risingstone.risingstoneui.settings.Window;
+import com.risingstone.risingstoneui.settings.Windows;
+import com.risingstone.risingstoneui.xml.XmlNode;
+import com.risingstone.risingstoneui.xml.XmlReader;
+import com.risingstone.risingstoneui.xml.XmlToPojo;
 import com.risingstone.risingstoneui.command.KeyHandler;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.Version;
@@ -144,7 +144,7 @@ public class Main {
         Future<XmlNode> xmlReaderFuture = reader.readXMLFile(FileUtils.getfileFromResources("window_settings.xml"));
         try {
             System.out.println(xmlReaderFuture.get(1000l, TimeUnit.MILLISECONDS));
-            Windows windows = (Windows) XmlToPojo.convertXmlToPOJO(FileUtils.getfileFromResources("window_settings.xml"), Windows.class);
+            Windows windows = (Windows) XmlToPojo.convertXmlToPOJO(FileUtils.getfileFromResources("window_settings.xml"));
             System.out.println(windows.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -157,6 +157,8 @@ public class Main {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         //new Main().run();

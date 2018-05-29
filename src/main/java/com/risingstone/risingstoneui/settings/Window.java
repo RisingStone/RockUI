@@ -1,8 +1,8 @@
-package com.risingstone.risingstoneui.Settings;
+package com.risingstone.risingstoneui.settings;
 
-import com.risingstone.risingstoneui.Xml.XmlAnnotation;
-import com.risingstone.risingstoneui.Xml.XmlMapperComponent;
-import com.risingstone.risingstoneui.Xml.XmlNode;
+import com.risingstone.risingstoneui.xml.XmlAnnotation;
+import com.risingstone.risingstoneui.xml.XmlMapperComponent;
+import com.risingstone.risingstoneui.xml.XmlNode;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

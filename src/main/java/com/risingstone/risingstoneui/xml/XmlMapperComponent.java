@@ -1,10 +1,10 @@
-package com.risingstone.risingstoneui.Xml;
+package com.risingstone.risingstoneui.xml;
 
 import java.lang.reflect.Field;
 
 public abstract class XmlMapperComponent {
     /**
-     * XmlMapperComponents may need the value of the Xml Tag
+     * XmlMapperComponents may need the value of the xml Tag
      * Examples include a text component
      */
     Object value;
