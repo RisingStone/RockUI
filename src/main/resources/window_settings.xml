@@ -15,6 +15,8 @@
             PrimaryMonitor = "default"
             PreferredMonitor = "-1"
             RefreshRate = "30">
+        <Title
+            Text="Main Window Title"/>
         <Window
                 ID="22222"
                 Tag="Sub"
@@ -25,7 +27,10 @@
                 Title = "Sub"
                 PrimaryMonitor = "default"
                 PreferredMonitor = "-1"
-                RefreshRate = "30"/>
+                RefreshRate = "30">
+            <Title
+                    Text="Main Window Sub Window Title"/>
+        </Window>
     </Window>
     <Window
             ID="33333"
@@ -37,5 +42,8 @@
             Title = "Third"
             PrimaryMonitor = "default"
             PreferredMonitor = "-1"
-            RefreshRate = "30"/>
+            RefreshRate = "30">
+        <Title
+                Text="Third Window Title"/>
+    </Window>
 </Windows>
