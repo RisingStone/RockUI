@@ -36,7 +36,7 @@ public class XmlReader {
         public XmlNode call() throws Exception {
             try{
                 SaxElementHandler handler = new SaxElementHandler();
-                elementStack = new Stack<XmlNode>();
+                elementStack = new Stack<>();
 
                 SAXParserFactory factory = SAXParserFactory.newInstance();
                 SAXParser saxParser = factory.newSAXParser();
@@ -61,7 +61,7 @@ public class XmlReader {
                 XmlNode newNode = new XmlNode(qName, "", new HashMap<>(), new ArrayList<>());
 
                 if(attributes.getLength() > 0){
-                    Map<String, Object> attributeMap = new HashMap<>();
+                    Map<String, String> attributeMap = new HashMap<>();
                     for(int i = 0; i < attributes.getLength(); i++){
                         attributeMap.put(attributes.getQName(i), attributes.getValue(i));
                     }

@@ -5,8 +5,8 @@ import java.lang.reflect.Field;
 public class XmlAnnotationProcessor {
 
     /**
-     * Returns the field name of the annotated field.
-     * Uses {@link XmlAnnotation} to get the supplied field name, or defaults to the field name
+     * Returns the field tag of the annotated field.
+     * Uses {@link XmlAnnotation} to get the supplied field tag, or defaults to the field tag
      * @param field
      * @return
      */

@@ -2,7 +2,6 @@ package com.risingstone.risingstoneui.settings;
 
 import com.risingstone.risingstoneui.xml.XmlAnnotation;
 import com.risingstone.risingstoneui.xml.XmlMapperComponent;
-import com.risingstone.risingstoneui.xml.XmlNode;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -22,19 +21,22 @@ public class Windows extends XmlMapperComponent {
     @XmlAnnotation(key = "XMLMapper")
     public String mapper;
 
-    @XmlAnnotation(key = "Window", required = false)
+    @XmlAnnotation(key = "Version")
+    public int version;
+
+    @XmlAnnotation(key = "Window", type = XmlAnnotation.Type.Tag, required = false)
     public List<Window> windows;
 
-
     public Windows() {
-
+        super();
     }
 
-    public Windows(String appName, String author, String url, String mapper, List<Window> windows) {
+    public Windows(String appName, String author, String url, String mapper, int version, List<Window> windows) {
         this.appName = appName;
         this.author = author;
         this.url = url;
         this.mapper = mapper;
+        this.version = version;
         this.windows = windows;
     }
 
@@ -70,6 +72,14 @@ public class Windows extends XmlMapperComponent {
         this.mapper = mapper;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     public List<Window> getWindows() {
         return windows;
     }
@@ -80,17 +90,22 @@ public class Windows extends XmlMapperComponent {
 
     @Override
     public String toString() {
-        return "Windows{" +
-                "appName='" + appName + '\'' +
-                ", author='" + author + '\'' +
-                ", url='" + url + '\'' +
-                ", mapper='" + mapper + '\'' +
-                ", windows=" + windows +
-                '}';
+        final StringBuffer sb = new StringBuffer("Windows{");
+        sb.append("appName='").append(appName).append('\'');
+        sb.append(", author='").append(author).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", mapper='").append(mapper).append('\'');
+        sb.append(", version=").append(version);
+        sb.append(", windows=").append(windows);
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
-    public Object StringToValue(Field field, XmlNode node) {
-        return null;
+    public Object StringToValue(Field field, String value) {
+        if(field.getName().equalsIgnoreCase("version")){
+            return Integer.parseInt(value);
+        }
+        return new Object();
     }
 }

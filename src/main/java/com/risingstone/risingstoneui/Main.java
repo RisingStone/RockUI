@@ -144,8 +144,8 @@ public class Main {
         Future<XmlNode> xmlReaderFuture = reader.readXMLFile(FileUtils.getfileFromResources("window_settings.xml"));
         try {
             System.out.println(xmlReaderFuture.get(1000l, TimeUnit.MILLISECONDS));
-            Windows windows = (Windows) XmlToPojo.convertXmlToPOJO(FileUtils.getfileFromResources("window_settings.xml"));
-            System.out.println(windows.toString());
+            Windows windows = (Windows) XmlToPojo.convertXmlToPOJO(FileUtils.getfileFromResources("window_settings.xml"), Windows.class);
+            System.out.print("Print Windows: \n" + windows.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -28,7 +28,7 @@ public class XmlUtils {
 
     public static XmlNode getChildByNameShallow(String name, XmlNode node){
         for(XmlNode child : node.getChildren()){
-            if(name.equalsIgnoreCase(child.name)){
+            if(name.equalsIgnoreCase(child.tag)){
                 return child;
             }
         }
@@ -40,7 +40,7 @@ public class XmlUtils {
         queue.push(node);
         while(!queue.isEmpty()){
             queue.addAll(node.getChildren());
-            if(node.getName().equalsIgnoreCase(name)){
+            if(node.getTag().equalsIgnoreCase(name)){
                 return node;
             }
             node = queue.pollLast();
@@ -73,11 +73,11 @@ public class XmlUtils {
     public static List<XmlNode> getListOfChildrenByNameShallow(String name, XmlNode node){
         List<XmlNode> list = new ArrayList<>();
         for(XmlNode child : node.getChildren()){
-            if(name.equalsIgnoreCase(child.name)){
+            if(name.equalsIgnoreCase(child.tag)){
                 list.add(child);
             }
         }
-        return null;
+        return list;
     }
 
     public static List<XmlNode> getListOfChildrenByNameDeep(String name, XmlNode node){
@@ -86,7 +86,7 @@ public class XmlUtils {
         queue.push(node);
         while(!queue.isEmpty()){
             queue.addAll(node.getChildren());
-            if(node.getName().equalsIgnoreCase(name)){
+            if(node.getTag().equalsIgnoreCase(name)){
                 list.add(node);
             }
             node = queue.pollLast();

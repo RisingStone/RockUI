@@ -4,27 +4,27 @@ import java.util.List;
 import java.util.Map;
 
 public class XmlNode {
-    String name;
+    String tag;
     Object val;
-    Map<String, Object> attributes;
+    Map<String, String> attributes;
     List<XmlNode> children;
 
     public XmlNode() {
     }
 
-    public XmlNode(String name, Object val, Map<String, Object> attributes, List<XmlNode> children) {
-        this.name = name;
+    public XmlNode(String tag, Object val, Map<String, String> attributes, List<XmlNode> children) {
+        this.tag = tag;
         this.val = val;
         this.attributes = attributes;
         this.children = children;
     }
 
-    public String getName() {
-        return name;
+    public String getTag() {
+        return tag;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public Object getVal() {
@@ -35,11 +35,11 @@ public class XmlNode {
         this.val = val;
     }
 
-    public Map<String, Object> getAttributes() {
+    public Map<String, String> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Map<String, Object> attributes) {
+    public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
     }
 
@@ -54,7 +54,7 @@ public class XmlNode {
     @Override
     public String toString() {
         return "XmlNode{" +
-                "name='" + name + '\'' +
+                "tag='" + tag + '\'' +
                 ", val='" + val + '\'' +
                 ", attributes=" + attributes +
                 ", children=" + children +

@@ -2,8 +2,8 @@
 <Windows AppName="RockUI"
          Author="Mark"
          URL="rock.ui"
-         XMLMapper="WindowSetting"
-         NameSpace="com.risingstone.risingstoneui.settings">
+         Version="12345">
+
     <Window
             ID="00000"
             Tag="MainWindow"
@@ -25,8 +25,7 @@
                 Title = "Sub"
                 PrimaryMonitor = "default"
                 PreferredMonitor = "-1"
-                RefreshRate = "30"
-        />
+                RefreshRate = "30"/>
     </Window>
     <Window
             ID="33333"
@@ -38,6 +37,5 @@
             Title = "Third"
             PrimaryMonitor = "default"
             PreferredMonitor = "-1"
-            RefreshRate = "30"
-    />
+            RefreshRate = "30"/>
 </Windows>
